@@ -1,0 +1,359 @@
+{
+  "name": "sqlxs",
+  "displayName": "SQLxs",
+  "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
+  "version": "1.1.0",
+  "publisher": "abridge",
+  "author": "abridge",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexbridge/abridge-vsx-sqlxs.git"
+  },
+  "homepage": "https://github.com/alexbridge/abridge-vsx-sqlxs",
+  "bugs": {
+    "url": "https://github.com/alexbridge/abridge-vsx-sqlxs/issues"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "icon": "icons/logo.png",
+  "categories": [
+    "Programming Languages",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "database",
+    "sql",
+    "mysql",
+    "postgres",
+    "postgresql",
+    "timescaledb",
+    "datagrip",
+    "intellij",
+    "jetbrains",
+    "phpstorm",
+    "webstorm",
+    "db-client",
+    "sql-client",
+    "database-tools",
+    "data-grid",
+    "sql-console",
+    "db-viewer",
+    "dbcode",
+    "vscode-extension"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "scripts": {
+    "build": "node esbuild.js",
+    "build:webview": "node esbuild-webview.js",
+    "build:css": "npx @tailwindcss/cli -i webview/styles.css -o dist/tailwind.css --minify",
+    "build:all": "npm run build && npm run build:webview && npm run build:css",
+    "build:production": "rm -rf dist && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
+    "package": "npm run build:production && yes | npx @vscode/vsce package --no-dependencies",
+    "watch": "node esbuild.js --watch",
+    "lint": "npm run format:check && tsc --noEmit",
+    "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\""
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "db-viewer",
+          "title": "Database",
+          "icon": "icons/sidebar.svg"
+        }
+      ]
+    },
+    "views": {
+      "db-viewer": [
+        {
+          "id": "db-explorer",
+          "name": "Connections",
+          "type": "tree"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "db.addConnection",
+        "title": "DB: Add Connection",
+        "category": "DB Viewer",
+        "icon": "$(plus)"
+      },
+      {
+        "command": "db.refreshConnections",
+        "title": "DB: Refresh Connections",
+        "category": "DB Viewer",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "db.newQuery",
+        "title": "DB: New Query",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.openTableData",
+        "title": "DB: Open Table Data",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.showSchema",
+        "title": "DB: Show Table Schema",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.toggleTranspose",
+        "title": "DB: Toggle Transpose View",
+        "category": "DB Viewer",
+        "icon": "$(layout-centered)"
+      },
+      {
+        "command": "db.exportResults",
+        "title": "DB: Export Results",
+        "category": "DB Viewer",
+        "icon": "$(export)"
+      },
+      {
+        "command": "db.importConnectionClipboard",
+        "title": "DB: Import Connection from Clipboard",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.importFromJson",
+        "title": "DB: Import Connection from JSON",
+        "category": "DB Viewer",
+        "icon": "$(json)"
+      },
+      {
+        "command": "db.importFromIntelliJ",
+        "title": "DB: Import from IntelliJ XML",
+        "category": "DB Viewer",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "db.editConnection",
+        "title": "DB: Edit Connection",
+        "category": "DB Viewer",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "db.deleteConnection",
+        "title": "DB: Delete Connection",
+        "category": "DB Viewer",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "db.openSqlConsole",
+        "title": "DB: Open SQL Console",
+        "category": "DB Viewer",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "db.runSqlBlock",
+        "title": "DB: Run SQL Block",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.runCurrentBlock",
+        "title": "DB: Run Current SQL Block",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.openSqlFile",
+        "title": "DB: Open SQL File",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.renameSqlConsole",
+        "title": "Rename",
+        "category": "DB Viewer"
+      },
+      {
+        "command": "db.deleteSqlConsole",
+        "title": "Delete",
+        "category": "DB Viewer",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "db.exportConnectionJson",
+        "title": "DB: Export Connection as JSON",
+        "category": "DB Viewer",
+        "icon": "$(json)"
+      },
+      {
+        "command": "db.exportConnectionXml",
+        "title": "DB: Export Connection as IntelliJ XML",
+        "category": "DB Viewer",
+        "icon": "$(file-code)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "db.addConnection",
+          "when": "view == db-explorer",
+          "group": "navigation"
+        },
+        {
+          "command": "db.importFromJson",
+          "when": "view == db-explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "db.importFromIntelliJ",
+          "when": "view == db-explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "db.refreshConnections",
+          "when": "view == db-explorer",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "db.openSqlConsole",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "inline@0"
+        },
+        {
+          "command": "db.exportConnectionJson",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "inline@1"
+        },
+        {
+          "command": "db.exportConnectionXml",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "inline@2"
+        },
+        {
+          "command": "db.editConnection",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "inline@3"
+        },
+        {
+          "command": "db.deleteConnection",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "inline@4"
+        },
+        {
+          "command": "db.openSqlConsole",
+          "when": "view == db-explorer && viewItem == sqlConsolesNode",
+          "group": "inline@1"
+        },
+        {
+          "command": "db.renameSqlConsole",
+          "when": "view == db-explorer && viewItem == sqlConsoleFileNode",
+          "group": "1_edit@1"
+        },
+        {
+          "command": "db.deleteSqlConsole",
+          "when": "view == db-explorer && viewItem == sqlConsoleFileNode",
+          "group": "1_edit@2"
+        },
+        {
+          "command": "db.exportConnectionJson",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "3_export@1"
+        },
+        {
+          "command": "db.exportConnectionXml",
+          "when": "view == db-explorer && viewItem == connectionNode",
+          "group": "3_export@2"
+        },
+        {
+          "command": "db.newQuery",
+          "when": "view == db-explorer && viewItem == databaseNode",
+          "group": "1_query"
+        },
+        {
+          "command": "db.openTableData",
+          "when": "view == db-explorer && (viewItem == tableNode || viewItem == viewNode)",
+          "group": "1_query"
+        },
+        {
+          "command": "db.showSchema",
+          "when": "view == db-explorer && viewItem == tableNode",
+          "group": "2_schema"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "db.newQuery",
+        "key": "ctrl+shift+q",
+        "mac": "cmd+shift+q"
+      },
+      {
+        "command": "db.toggleTranspose",
+        "key": "ctrl+t",
+        "mac": "cmd+t",
+        "when": "webviewId == db-result-grid"
+      },
+      {
+        "command": "db.runCurrentBlock",
+        "key": "f5",
+        "mac": "f5",
+        "when": "editorTextFocus && resourceExtname == .sql"
+      }
+    ],
+    "configuration": {
+      "title": "DB Viewer",
+      "properties": {
+        "dbviewer.defaultPageSize": {
+          "type": "number",
+          "default": 50,
+          "description": "Rows per page in the result grid."
+        },
+        "dbviewer.defaultView": {
+          "type": "string",
+          "enum": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal",
+          "description": "Default view layout for query results."
+        },
+        "dbviewer.nullDisplay": {
+          "type": "string",
+          "default": "NULL",
+          "description": "String to display for NULL values."
+        },
+        "dbviewer.maxColumnWidth": {
+          "type": "number",
+          "default": 300,
+          "description": "Maximum width of a column in the result grid (pixels)."
+        },
+        "dbviewer.confirmOnDelete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Confirm before deleting a connection."
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "mysql2": "^3.9.2",
+    "pg": "^8.11.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "@types/node": "^20.11.0",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.27.4",
+    "prettier": "^3.8.2",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.3.0"
+  }
+}

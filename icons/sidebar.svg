@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 128 112" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- left curly bracket (from APIxs) -->
+  <path d="M32 14 Q16 22 16 38 Q16 48 4 56 Q16 64 16 74 Q16 90 32 98"/>
+  <!-- right curly bracket (from APIxs) -->
+  <path d="M96 14 Q112 22 112 38 Q112 48 124 56 Q112 64 112 74 Q112 90 96 98"/>
+  <!-- database cylinder: top ellipse -->
+  <ellipse cx="64" cy="38" rx="22" ry="10" stroke-width="5"/>
+  <!-- database cylinder: body -->
+  <path d="M42 38 L42 72 Q42 82 64 82 Q86 82 86 72 L86 38" stroke-width="5"/>
+  <!-- database cylinder: middle ring -->
+  <path d="M42 55 Q42 65 64 65 Q86 65 86 55" stroke-width="4" stroke-opacity="0.5"/>
+</svg>
