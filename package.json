@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE IN LICENSE",
