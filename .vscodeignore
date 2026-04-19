@@ -1,0 +1,5 @@
+.gitignore
+.nvmrc
+Makefile
+node_modules/**
+*.vsix
