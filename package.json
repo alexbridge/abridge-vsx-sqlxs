@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE IN LICENSE",
@@ -42,7 +42,7 @@
     "sql-console",
     "db-viewer",
     "dbcode",
-    "vscode-extension"
+    "sqltools"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [
@@ -54,7 +54,7 @@
     "build:css": "npx @tailwindcss/cli -i webview/styles.css -o dist/tailwind.css --minify",
     "build:all": "npm run build && npm run build:webview && npm run build:css",
     "build:production": "rm -rf dist && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
-    "package": "npm run build:production && yes | npx @vscode/vsce package --no-dependencies",
+    "package": "yes | npx @vscode/vsce package --no-dependencies",
     "watch": "node esbuild.js --watch",
     "lint": "npm run format:check && tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\"",
@@ -64,16 +64,16 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "db-viewer",
-          "title": "Database",
+          "id": "sqlxs",
+          "title": "SQLxs",
           "icon": "icons/sidebar.svg"
         }
       ]
     },
     "views": {
-      "db-viewer": [
+      "sqlxs": [
         {
-          "id": "db-explorer",
+          "id": "sqlxs.explorer",
           "name": "Connections",
           "type": "tree"
         }
@@ -81,237 +81,227 @@
     },
     "commands": [
       {
-        "command": "db.addConnection",
-        "title": "DB: Add Connection",
-        "category": "DB Viewer",
+        "command": "sqlxs.addConnection",
+        "title": "Add Connection",
+        "category": "SQLxs",
         "icon": "$(plus)"
       },
       {
-        "command": "db.refreshConnections",
-        "title": "DB: Refresh Connections",
-        "category": "DB Viewer",
+        "command": "sqlxs.refreshConnections",
+        "title": "Refresh Connections",
+        "category": "SQLxs",
         "icon": "$(refresh)"
       },
       {
-        "command": "db.newQuery",
-        "title": "DB: New Query",
-        "category": "DB Viewer"
+        "command": "sqlxs.openSqlConsole",
+        "title": "New Query",
+        "category": "SQLxs"
       },
       {
-        "command": "db.openTableData",
-        "title": "DB: Open Table Data",
-        "category": "DB Viewer"
+        "command": "sqlxs.openTableData",
+        "title": "Open Table Data",
+        "category": "SQLxs"
       },
       {
-        "command": "db.showSchema",
-        "title": "DB: Show Table Schema",
-        "category": "DB Viewer"
+        "command": "sqlxs.showSchema",
+        "title": "Show Table Schema",
+        "category": "SQLxs"
       },
       {
-        "command": "db.toggleTranspose",
-        "title": "DB: Toggle Transpose View",
-        "category": "DB Viewer",
+        "command": "sqlxs.toggleTranspose",
+        "title": "Toggle Transpose View",
+        "category": "SQLxs",
         "icon": "$(layout-centered)"
       },
       {
-        "command": "db.exportResults",
-        "title": "DB: Export Results",
-        "category": "DB Viewer",
+        "command": "sqlxs.exportResults",
+        "title": "Export Results",
+        "category": "SQLxs",
         "icon": "$(export)"
       },
       {
-        "command": "db.importConnectionClipboard",
-        "title": "DB: Import Connection from Clipboard",
-        "category": "DB Viewer"
+        "command": "sqlxs.importConnectionClipboard",
+        "title": "Import Connection from Clipboard",
+        "category": "SQLxs"
       },
       {
-        "command": "db.importFromJson",
-        "title": "DB: Import Connection from JSON",
-        "category": "DB Viewer",
+        "command": "sqlxs.importFromJson",
+        "title": "Import Connection from JSON",
+        "category": "SQLxs",
         "icon": "$(json)"
       },
       {
-        "command": "db.importFromIntelliJ",
-        "title": "DB: Import from IntelliJ XML",
-        "category": "DB Viewer",
+        "command": "sqlxs.importFromIntelliJ",
+        "title": "Import from IntelliJ XML",
+        "category": "SQLxs",
         "icon": "$(file-code)"
       },
       {
-        "command": "db.editConnection",
-        "title": "DB: Edit Connection",
-        "category": "DB Viewer",
+        "command": "sqlxs.editConnection",
+        "title": "Edit Connection",
+        "category": "SQLxs",
         "icon": "$(edit)"
       },
       {
-        "command": "db.deleteConnection",
-        "title": "DB: Delete Connection",
-        "category": "DB Viewer",
+        "command": "sqlxs.deleteConnection",
+        "title": "Delete Connection",
+        "category": "SQLxs",
         "icon": "$(trash)"
       },
       {
-        "command": "db.openSqlConsole",
-        "title": "DB: Open SQL Console",
-        "category": "DB Viewer",
+        "command": "sqlxs.openSqlConsole",
+        "title": "Open SQL Console",
+        "category": "SQLxs",
         "icon": "$(terminal)"
       },
       {
-        "command": "db.runSqlBlock",
-        "title": "DB: Run SQL Block",
-        "category": "DB Viewer"
+        "command": "sqlxs.runSqlBlock",
+        "title": "Run SQL Block",
+        "category": "SQLxs"
       },
       {
-        "command": "db.runCurrentBlock",
-        "title": "DB: Run Current SQL Block",
-        "category": "DB Viewer"
+        "command": "sqlxs.runCurrentBlock",
+        "title": "Run Current SQL Block",
+        "category": "SQLxs"
       },
       {
-        "command": "db.openSqlFile",
-        "title": "DB: Open SQL File",
-        "category": "DB Viewer"
+        "command": "sqlxs.openSqlFile",
+        "title": "Open SQL File",
+        "category": "SQLxs"
       },
       {
-        "command": "db.renameSqlConsole",
+        "command": "sqlxs.renameSqlConsole",
         "title": "Rename",
-        "category": "DB Viewer"
+        "category": "SQLxs"
       },
       {
-        "command": "db.deleteSqlConsole",
+        "command": "sqlxs.deleteSqlConsole",
         "title": "Delete",
-        "category": "DB Viewer",
+        "category": "SQLxs",
         "icon": "$(trash)"
       },
       {
-        "command": "db.exportConnectionJson",
-        "title": "DB: Export Connection as JSON",
-        "category": "DB Viewer",
+        "command": "sqlxs.exportConnectionJson",
+        "title": "Export Connection as JSON",
+        "category": "SQLxs",
         "icon": "$(json)"
       },
       {
-        "command": "db.exportConnectionXml",
-        "title": "DB: Export Connection as IntelliJ XML",
-        "category": "DB Viewer",
+        "command": "sqlxs.exportConnectionXml",
+        "title": "Export Connection as IntelliJ XML",
+        "category": "SQLxs",
         "icon": "$(file-code)"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "db.addConnection",
-          "when": "view == db-explorer",
+          "command": "sqlxs.addConnection",
+          "when": "view == sqlxs.explorer",
           "group": "navigation"
         },
         {
-          "command": "db.importFromJson",
-          "when": "view == db-explorer",
+          "command": "sqlxs.importFromJson",
+          "when": "view == sqlxs.explorer",
           "group": "navigation@1"
         },
         {
-          "command": "db.importFromIntelliJ",
-          "when": "view == db-explorer",
+          "command": "sqlxs.importFromIntelliJ",
+          "when": "view == sqlxs.explorer",
           "group": "navigation@2"
         },
         {
-          "command": "db.refreshConnections",
-          "when": "view == db-explorer",
+          "command": "sqlxs.refreshConnections",
+          "when": "view == sqlxs.explorer",
           "group": "navigation@3"
         }
       ],
       "view/item/context": [
         {
-          "command": "db.openSqlConsole",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.openSqlConsole",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@0"
         },
         {
-          "command": "db.exportConnectionJson",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.exportConnectionJson",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@1"
         },
         {
-          "command": "db.exportConnectionXml",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.exportConnectionXml",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@2"
         },
         {
-          "command": "db.editConnection",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.editConnection",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@3"
         },
         {
-          "command": "db.deleteConnection",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.deleteConnection",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@4"
         },
         {
-          "command": "db.openSqlConsole",
-          "when": "view == db-explorer && viewItem == sqlConsolesNode",
+          "command": "sqlxs.openSqlConsole",
+          "when": "view == sqlxs.explorer && viewItem == sqlConsolesNode",
           "group": "inline@1"
         },
         {
-          "command": "db.renameSqlConsole",
-          "when": "view == db-explorer && viewItem == sqlConsoleFileNode",
+          "command": "sqlxs.renameSqlConsole",
+          "when": "view == sqlxs.explorer && viewItem == sqlConsoleFileNode",
           "group": "1_edit@1"
         },
         {
-          "command": "db.deleteSqlConsole",
-          "when": "view == db-explorer && viewItem == sqlConsoleFileNode",
+          "command": "sqlxs.deleteSqlConsole",
+          "when": "view == sqlxs.explorer && viewItem == sqlConsoleFileNode",
           "group": "1_edit@2"
         },
         {
-          "command": "db.exportConnectionJson",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.exportConnectionJson",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "3_export@1"
         },
         {
-          "command": "db.exportConnectionXml",
-          "when": "view == db-explorer && viewItem == connectionNode",
+          "command": "sqlxs.exportConnectionXml",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "3_export@2"
         },
         {
-          "command": "db.newQuery",
-          "when": "view == db-explorer && viewItem == databaseNode",
+          "command": "sqlxs.openTableData",
+          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode)",
           "group": "1_query"
         },
         {
-          "command": "db.openTableData",
-          "when": "view == db-explorer && (viewItem == tableNode || viewItem == viewNode)",
-          "group": "1_query"
-        },
-        {
-          "command": "db.showSchema",
-          "when": "view == db-explorer && viewItem == tableNode",
+          "command": "sqlxs.showSchema",
+          "when": "view == sqlxs.explorer && viewItem == tableNode",
           "group": "2_schema"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "db.newQuery",
-        "key": "ctrl+shift+q",
-        "mac": "cmd+shift+q"
-      },
-      {
-        "command": "db.toggleTranspose",
+        "command": "sqlxs.toggleTranspose",
         "key": "ctrl+t",
         "mac": "cmd+t",
-        "when": "webviewId == db-result-grid"
+        "when": "webviewId == sqlxs.resultGrid"
       },
       {
-        "command": "db.runCurrentBlock",
+        "command": "sqlxs.runCurrentBlock",
         "key": "f5",
         "mac": "f5",
         "when": "editorTextFocus && resourceExtname == .sql"
       }
     ],
     "configuration": {
-      "title": "DB Viewer",
+      "title": "SQLxs",
       "properties": {
-        "dbviewer.defaultPageSize": {
+        "sqlxs.defaultPageSize": {
           "type": "number",
           "default": 50,
           "description": "Rows per page in the result grid."
         },
-        "dbviewer.defaultView": {
+        "sqlxs.defaultView": {
           "type": "string",
           "enum": [
             "horizontal",
@@ -320,17 +310,17 @@
           "default": "horizontal",
           "description": "Default view layout for query results."
         },
-        "dbviewer.nullDisplay": {
+        "sqlxs.nullDisplay": {
           "type": "string",
           "default": "NULL",
           "description": "String to display for NULL values."
         },
-        "dbviewer.maxColumnWidth": {
+        "sqlxs.maxColumnWidth": {
           "type": "number",
           "default": 300,
           "description": "Maximum width of a column in the result grid (pixels)."
         },
-        "dbviewer.confirmOnDelete": {
+        "sqlxs.confirmOnDelete": {
           "type": "boolean",
           "default": true,
           "description": "Confirm before deleting a connection."
