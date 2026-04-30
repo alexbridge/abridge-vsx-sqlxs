@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE IN LICENSE",
@@ -191,6 +191,11 @@
         "title": "Export Connection as IntelliJ XML",
         "category": "SQLxs",
         "icon": "$(file-code)"
+      },
+      {
+        "command": "sqlxs.formatSqlBlock",
+        "title": "Format SQL Block",
+        "category": "SQLxs"
       }
     ],
     "menus": {
@@ -293,6 +298,11 @@
         "when": "editorTextFocus && resourceExtname == .sql"
       }
     ],
+    "configurationDefaults": {
+      "[sql]": {
+        "editor.defaultFormatter": "abridge.sqlxs"
+      }
+    },
     "configuration": {
       "title": "SQLxs",
       "properties": {
@@ -332,7 +342,8 @@
     "mysql2": "^3.9.2",
     "pg": "^8.11.3",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "sql-formatter": "^15.7.3"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.1",
