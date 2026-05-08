@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.4.0
+- Data-view: show value in tab below
+- Read-only connections
+- SQL Console improvement, SQL intellisense (autocomplete base SQL functions, keywords)
+
 ## v1.3.0
 - Built-in SQL formatter with Format CodeLens.
 
