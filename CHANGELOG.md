@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5.0
+- Data-view: per-table filter memory
+- Data-view: Recent filters dropdown on WHERE clause
+- Extension: Reset filters command
+
 ## v1.4.0
 - Data-view: show value in tab below
 - Read-only connections

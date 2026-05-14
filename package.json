@@ -2,10 +2,10 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "publisher": "abridge",
   "author": "abridge",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "SEE LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexbridge/abridge-vsx-sqlxs.git"
@@ -49,12 +49,13 @@
     "onStartupFinished"
   ],
   "scripts": {
-    "build": "node esbuild.js",
+    "extract:sql-data": "node scripts/extract-sql-dialect-data.js",
+    "build": "npm run extract:sql-data && node esbuild.js",
     "build:webview": "node esbuild-webview.js",
     "build:css": "npx @tailwindcss/cli -i webview/styles.css -o dist/tailwind.css --minify",
     "build:all": "npm run build && npm run build:webview && npm run build:css",
-    "build:production": "rm -rf dist && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
-    "package": "yes | npx @vscode/vsce package --no-dependencies",
+    "build:production": "rm -rf dist && npm run extract:sql-data && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
+    "package": "npm run build:production && yes | npx @vscode/vsce package --no-dependencies",
     "watch": "node esbuild.js --watch",
     "lint": "npm run format:check && tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\"",
@@ -195,6 +196,11 @@
       {
         "command": "sqlxs.formatSqlBlock",
         "title": "Format SQL Block",
+        "category": "SQLxs"
+      },
+      {
+        "command": "sqlxs.resetFilters",
+        "title": "Reset Table Filter Memory",
         "category": "SQLxs"
       }
     ],
