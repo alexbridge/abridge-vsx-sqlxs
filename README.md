@@ -74,7 +74,8 @@ JetBrains IDEs ship with excellent built-in database support, but if your editor
 - **Column autocomplete** — type a table name + `.` to get column suggestions; `FROM`/`JOIN` suggests table names
 - **Results in bottom panel** — lightweight grid with transpose & export, reused across executions
 - **Loading indicator** with cancel support
-- **Error display** in the result panel
+- **Connection Bindings** — Consoles use a comment header at the top (`-- @connection: Name (id) [database]`) to link the editor tab with a specific database connection.
+- **Switching Databases** — Change the active database context manually by editing the name inside the brackets (e.g. changing `[APP]` to `[IAM]`). Code completion and query execution update immediately without reloading.
 
 ### Import / Export
 - **Import from IntelliJ**: paste the `#DataSourceSettings#...#END#` clipboard format from any JetBrains IDE

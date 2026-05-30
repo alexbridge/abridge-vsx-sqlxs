@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -55,7 +55,7 @@
     "build:css": "npx @tailwindcss/cli -i webview/styles.css -o dist/tailwind.css --minify",
     "build:all": "npm run build && npm run build:webview && npm run build:css",
     "build:production": "rm -rf dist && npm run extract:sql-data && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
-    "package": "npm run build:production && yes | npx @vscode/vsce package --no-dependencies",
+    "package": "yes | npx @vscode/vsce package --no-dependencies",
     "watch": "node esbuild.js --watch",
     "lint": "npm run format:check && tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\"",
@@ -107,6 +107,17 @@
         "command": "sqlxs.showSchema",
         "title": "Show Table Schema",
         "category": "SQLxs"
+      },
+      {
+        "command": "sqlxs.showTriggerDdl",
+        "title": "Show Trigger DDL",
+        "category": "SQLxs"
+      },
+      {
+        "command": "sqlxs.refreshTable",
+        "title": "Refresh",
+        "category": "SQLxs",
+        "icon": "$(refresh)"
       },
       {
         "command": "sqlxs.toggleTranspose",
@@ -202,6 +213,12 @@
         "command": "sqlxs.resetFilters",
         "title": "Reset Table Filter Memory",
         "category": "SQLxs"
+      },
+      {
+        "command": "sqlxs.copyNodeLabel",
+        "title": "Copy Name",
+        "category": "SQLxs",
+        "icon": "$(copy)"
       }
     ],
     "menus": {
@@ -284,9 +301,29 @@
           "group": "1_query"
         },
         {
+          "command": "sqlxs.refreshTable",
+          "when": "view == sqlxs.explorer && viewItem == tableNode",
+          "group": "0_refresh"
+        },
+        {
+          "command": "sqlxs.refreshTable",
+          "when": "view == sqlxs.explorer && viewItem == tableNode",
+          "group": "inline@8"
+        },
+        {
           "command": "sqlxs.showSchema",
           "when": "view == sqlxs.explorer && viewItem == tableNode",
           "group": "2_schema"
+        },
+        {
+          "command": "sqlxs.copyNodeLabel",
+          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode || viewItem == databaseNode || viewItem == connectionNode)",
+          "group": "9_copy"
+        },
+        {
+          "command": "sqlxs.copyNodeLabel",
+          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode)",
+          "group": "inline@9"
         }
       ]
     },
@@ -302,6 +339,12 @@
         "key": "f5",
         "mac": "f5",
         "when": "editorTextFocus && resourceExtname == .sql"
+      },
+      {
+        "command": "sqlxs.copyNodeLabel",
+        "key": "ctrl+c",
+        "mac": "cmd+c",
+        "when": "focusedView == sqlxs.explorer"
       }
     ],
     "configurationDefaults": {

@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.6.0
+- Tree: Copy name (right-click, inline icon, Ctrl+C)
+- Tree: clicking table keeps tree focus
+- Tree: table groups columns/keys/indexes/triggers
+- Tree: view and refresh table triggers
+- Tree: SQL console files use theme icon
+- SQL Console: Multi-DB autocomplete support (cross-database schemas, two-level dotted path completion)
+
 ## v1.5.0
 - Data-view: per-table filter memory
 - Data-view: Recent filters dropdown on WHERE clause
