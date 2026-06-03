@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.7.0
+**Feature**
+
+- Data grid: checkbox multi-select (per-row plus select-all on the page)
+- Data grid: delete selected rows in one transaction (replaces the per-row Delete key / context menu)
+- Data grid: copy selected rows into the same-named table on another connection (pick connection + database; strict column check; one transaction)
+- SQL Console: Set/Clear SQL Block (right-click) to mark a query block by hand
+
+**Bug fix**
+
+- Export to SQL Insert: correct quotes per engine (backticks for MySQL, double quotes for Postgres)
+- Export to SQL Insert: JSON columns export as JSON, not `[object Object]`
+
 ## v1.6.0
 - Tree: Copy name (right-click, inline icon, Ctrl+C)
 - Tree: clicking table keeps tree focus

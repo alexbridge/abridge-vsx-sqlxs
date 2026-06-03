@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -210,6 +210,16 @@
         "category": "SQLxs"
       },
       {
+        "command": "sqlxs.setSqlBlock",
+        "title": "Set SQL Block",
+        "category": "SQLxs"
+      },
+      {
+        "command": "sqlxs.clearSqlBlock",
+        "title": "Clear SQL Block",
+        "category": "SQLxs"
+      },
+      {
         "command": "sqlxs.resetFilters",
         "title": "Reset Table Filter Memory",
         "category": "SQLxs"
@@ -324,6 +334,18 @@
           "command": "sqlxs.copyNodeLabel",
           "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode)",
           "group": "inline@9"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "sqlxs.setSqlBlock",
+          "when": "resourceExtname == .sql && editorHasSelection",
+          "group": "sqlxs@1"
+        },
+        {
+          "command": "sqlxs.clearSqlBlock",
+          "when": "resourceExtname == .sql",
+          "group": "sqlxs@2"
         }
       ]
     },
