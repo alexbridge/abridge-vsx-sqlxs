@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.7.1
+**Bugs**
+- Data grid: text/json value view (F2) for read-only connections
+- SQL result: fix column names case
+
 ## v1.7.0
 **Feature**
 
