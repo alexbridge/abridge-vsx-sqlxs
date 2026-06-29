@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.8.0
+**Feature**
+
+- Binary/BLOB cells render as `<binary N bytes>`.
+- Page-size options 10 and 20 added.
+- `Default Page Size` setting is a dropdown, applied to newly opened grids.
+- Read-only connection: F2 value viewer opens the editor read-only.
+- Read-only connection: Discard changes reloads the open cell editor to its original value.
+
+**Bug fix**
+
+- CSV/Markdown export: binary cells export as the JSON marker, same as SQL Insert.
+- SQL Console export reuses the data-grid exporter and strips binary.
+- Copy to connection: generated/computed columns skipped.
+
 ## v1.7.1
 **Bugs**
 - Data grid: text/json value view (F2) for read-only connections
