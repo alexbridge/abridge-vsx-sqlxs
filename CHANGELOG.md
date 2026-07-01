@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.0
+**Feature**
+
+- Connection tree: separator rows.
+- Connection tree: reorder separators and connections.
+
+**Bug fix**
+
+- PostgreSQL: use of database and schemas. Tree view, structure, data grid, edits, copy-to, and console autocomplete scope to the selected PG schema.
+
 ## v1.8.0
 **Feature**
 

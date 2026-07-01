@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -229,6 +229,36 @@
         "title": "Copy Name",
         "category": "SQLxs",
         "icon": "$(copy)"
+      },
+      {
+        "command": "sqlxs.addSeparator",
+        "title": "Add Separator",
+        "category": "SQLxs",
+        "icon": "$(list-flat)"
+      },
+      {
+        "command": "sqlxs.renameSeparator",
+        "title": "Rename Separator",
+        "category": "SQLxs",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "sqlxs.deleteSeparator",
+        "title": "Delete Separator",
+        "category": "SQLxs",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "sqlxs.moveUp",
+        "title": "Move Up",
+        "category": "SQLxs",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "sqlxs.moveDown",
+        "title": "Move Down",
+        "category": "SQLxs",
+        "icon": "$(arrow-down)"
       }
     ],
     "menus": {
@@ -239,19 +269,24 @@
           "group": "navigation"
         },
         {
-          "command": "sqlxs.importFromJson",
+          "command": "sqlxs.addSeparator",
           "when": "view == sqlxs.explorer",
           "group": "navigation@1"
         },
         {
-          "command": "sqlxs.importFromIntelliJ",
+          "command": "sqlxs.importFromJson",
           "when": "view == sqlxs.explorer",
           "group": "navigation@2"
         },
         {
-          "command": "sqlxs.refreshConnections",
+          "command": "sqlxs.importFromIntelliJ",
           "when": "view == sqlxs.explorer",
           "group": "navigation@3"
+        },
+        {
+          "command": "sqlxs.refreshConnections",
+          "when": "view == sqlxs.explorer",
+          "group": "navigation@4"
         }
       ],
       "view/item/context": [
@@ -279,6 +314,36 @@
           "command": "sqlxs.deleteConnection",
           "when": "view == sqlxs.explorer && viewItem == connectionNode",
           "group": "inline@4"
+        },
+        {
+          "command": "sqlxs.moveUp",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
+          "group": "inline@5"
+        },
+        {
+          "command": "sqlxs.moveDown",
+          "when": "view == sqlxs.explorer && viewItem == connectionNode",
+          "group": "inline@6"
+        },
+        {
+          "command": "sqlxs.moveUp",
+          "when": "view == sqlxs.explorer && viewItem == separator",
+          "group": "inline@0"
+        },
+        {
+          "command": "sqlxs.moveDown",
+          "when": "view == sqlxs.explorer && viewItem == separator",
+          "group": "inline@1"
+        },
+        {
+          "command": "sqlxs.renameSeparator",
+          "when": "view == sqlxs.explorer && viewItem == separator",
+          "group": "inline@2"
+        },
+        {
+          "command": "sqlxs.deleteSeparator",
+          "when": "view == sqlxs.explorer && viewItem == separator",
+          "group": "inline@3"
         },
         {
           "command": "sqlxs.openSqlConsole",
@@ -430,7 +495,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/vscode": "^1.85.0",
-    "esbuild": "^0.27.4",
+    "esbuild": "^0.28.1",
     "prettier": "^3.8.2",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.3.0"
