@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.1
+**Feature**
+
+- Data grid: cells display an edit icon on hover.
+
+**Bug fix**
+
+- Export to: absolute position layout fixed.
+- Data grid: read-only connections value view behavior
+
 ## v1.9.0
 **Feature**
 
