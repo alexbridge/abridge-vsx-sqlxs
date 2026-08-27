@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.9.2
+
+**Bug fix**
+
+- Connection form keeps state when the tab loses focus.
+- MySQL, PostgreSQL: Show Schema on a view returns the view DDL.
+
 ## v1.9.1
 **Feature**
 

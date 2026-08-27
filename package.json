@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -116,6 +116,12 @@
       {
         "command": "sqlxs.refreshTable",
         "title": "Refresh",
+        "category": "SQLxs",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "sqlxs.refreshDatabase",
+        "title": "Refresh Tables",
         "category": "SQLxs",
         "icon": "$(refresh)"
       },
@@ -386,18 +392,28 @@
           "group": "inline@8"
         },
         {
+          "command": "sqlxs.refreshDatabase",
+          "when": "view == sqlxs.explorer && viewItem == databaseNode",
+          "group": "0_refresh"
+        },
+        {
+          "command": "sqlxs.refreshDatabase",
+          "when": "view == sqlxs.explorer && viewItem == databaseNode",
+          "group": "inline@8"
+        },
+        {
           "command": "sqlxs.showSchema",
           "when": "view == sqlxs.explorer && viewItem == tableNode",
           "group": "2_schema"
         },
         {
           "command": "sqlxs.copyNodeLabel",
-          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode || viewItem == databaseNode || viewItem == connectionNode)",
+          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode || viewItem == indexNode || viewItem == databaseNode || viewItem == connectionNode)",
           "group": "9_copy"
         },
         {
           "command": "sqlxs.copyNodeLabel",
-          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode)",
+          "when": "view == sqlxs.explorer && (viewItem == tableNode || viewItem == viewNode || viewItem == columnNode || viewItem == indexNode)",
           "group": "inline@9"
         }
       ],
