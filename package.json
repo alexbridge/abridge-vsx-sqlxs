@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.9.2",
+  "version": "1.10.0",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -469,6 +469,16 @@
           ],
           "default": 50,
           "description": "Rows per page in the result grid."
+        },
+        "sqlxs.defaultDialect": {
+          "type": "string",
+          "enum": [
+            "mysql",
+            "postgres",
+            "generic"
+          ],
+          "default": "mysql",
+          "description": "SQL dialect used for formatting and completion when a .sql file has no SQLxs connection header. Generic spaces out every function call (DATE_SUB (NOW ())), which MySQL rejects."
         },
         "sqlxs.defaultView": {
           "type": "string",

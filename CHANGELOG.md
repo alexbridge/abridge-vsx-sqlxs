@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.10.0
+**Feature**
+
+- Data grid, SQL console: status line with timing (execution, fetching).
+
+**Bug fix**
+
+- SQL format: sql files use the `sqlxs.defaultDialect` dialect to format SQL, default `mysql`.
+
 ## v1.9.2
 
 **Bug fix**
