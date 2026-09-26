@@ -2,7 +2,7 @@
   "name": "sqlxs",
   "displayName": "SQLxs",
   "description": "Database tools for VS Code — IntelliJ/DataGrip-style data grid, SQL console with CodeLens, inline editing, transpose view. MySQL, PostgreSQL, TimescaleDB (xs = extra SQL).",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "publisher": "abridge",
   "author": "abridge",
   "license": "SEE LICENSE",
@@ -55,7 +55,7 @@
     "build:css": "npx @tailwindcss/cli -i webview/styles.css -o dist/tailwind.css --minify",
     "build:all": "npm run build && npm run build:webview && npm run build:css",
     "build:production": "rm -rf dist && npm run extract:sql-data && node esbuild.js --production && node esbuild-webview.js --production && npm run build:css",
-    "package": "yes | npx @vscode/vsce package --no-dependencies",
+    "package": "npm run build:production && yes | npx @vscode/vsce package --no-dependencies",
     "watch": "node esbuild.js --watch",
     "lint": "npm run format:check && tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"webview/**/*.{ts,tsx}\"",
@@ -86,6 +86,12 @@
         "title": "Add Connection",
         "category": "SQLxs",
         "icon": "$(plus)"
+      },
+      {
+        "command": "sqlxs.addConnectionToGroup",
+        "title": "New Connection in Group",
+        "icon": "$(plus)",
+        "category": "SQLxs"
       },
       {
         "command": "sqlxs.refreshConnections",
@@ -332,24 +338,29 @@
           "group": "inline@6"
         },
         {
-          "command": "sqlxs.moveUp",
+          "command": "sqlxs.addConnectionToGroup",
           "when": "view == sqlxs.explorer && viewItem == separator",
           "group": "inline@0"
         },
         {
-          "command": "sqlxs.moveDown",
+          "command": "sqlxs.moveUp",
           "when": "view == sqlxs.explorer && viewItem == separator",
           "group": "inline@1"
         },
         {
-          "command": "sqlxs.renameSeparator",
+          "command": "sqlxs.moveDown",
           "when": "view == sqlxs.explorer && viewItem == separator",
           "group": "inline@2"
         },
         {
-          "command": "sqlxs.deleteSeparator",
+          "command": "sqlxs.renameSeparator",
           "when": "view == sqlxs.explorer && viewItem == separator",
           "group": "inline@3"
+        },
+        {
+          "command": "sqlxs.deleteSeparator",
+          "when": "view == sqlxs.explorer && viewItem == separator",
+          "group": "inline@4"
         },
         {
           "command": "sqlxs.openSqlConsole",

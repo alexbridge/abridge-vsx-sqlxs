@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.10.1
+
+**Bug fix**
+
+- PostgreSQL: mixed-case and reserved-word columns — `Id = 5` against a `"Id"`.
+- Data grid: count query run async to reduce draw time
+
 ## v1.10.0
 **Feature**
 
