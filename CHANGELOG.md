@@ -1,11 +1,18 @@
 # Changelog
 
+## v1.10.2
+
+**Bug fix**
+
+- Connection edit form: fields load on every open.
+- Connection edit: repeat Edit on a connection reveals its open form instead of opening a new tab.
+
 ## v1.10.1
 
 **Bug fix**
 
 - PostgreSQL: mixed-case and reserved-word columns — `Id = 5` against a `"Id"`.
-- Data grid: count query run async to reduce draw time
+- Data grid: count query run asynchron to reduce draw time
 
 ## v1.10.0
 **Feature**
